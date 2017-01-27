@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">Scientific Calculator</string>
-    <string name="pi">\u03C0</string>
-    <string name="sqrt"><big>\u00B2</big>\u221A</string>
-    <string name="cbrt"><big>\u00B3</big>\u221A</string>
-    <string name="expt">x\u221Ay</string>
-    <string name="root">\u221A</string>
-</resources>
