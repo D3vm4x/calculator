@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.view.View;
 import java.lang.String;
 import android.content.Context;
+import android.widget.Toast;
 
 public class Calculator extends AppCompatActivity {
     String sqrt = "";
@@ -22,7 +23,7 @@ public class Calculator extends AppCompatActivity {
     String onDisplay="";
     String expDisplay = "";
     public String last_answer = "";
-    String sign="";
+//    String sign="";
     String deg_mode = "RAD";
     private static Context mContext;
 
@@ -43,12 +44,6 @@ public class Calculator extends AppCompatActivity {
 
     public static Context getContext(){
         return mContext;
-    }
-
-    // removes trailing zeros of a decimal
-    public String removeZeros(String s) {
-        s = !s.contains(".") ? s : s.replaceAll("0*$", "").replaceAll("\\.$", "");
-        return s;
     }
 
     // appends value to display based on button clicks
@@ -179,10 +174,52 @@ public class Calculator extends AppCompatActivity {
             onDisplay += root;
     }
 
+    // appends given values to display based on button clicks
+    public void OnClick(View v) {
+        if(MODE.equals("ANS")) {
+            onDisplay = "";
+            expDisplay = "";
+        }
+        checkError();
+        onDisplay = onDisplay.replaceAll("^0+","");
+        if (onDisplay.startsWith("."))
+            onDisplay = "0" + onDisplay;
+        getValue(v);
+        display.setText(onDisplay);
+        MODE = "APPEND";
+    }
+
+    // appends the "^" power operator
+    public void OnExpt(View v) {
+        checkError();
+        if(MODE != "OP" && !onDisplay.isEmpty()) {
+            Button button = (Button) v;
+            String power = button.getText().toString();
+            if(power.equals("x^2"))
+                power = "^2";
+            else if(power.equals("x^3"))
+                power = "^3";
+            else if(power.equals("x^y"))
+                power = "^";
+            onDisplay += power;
+            display.setText(onDisplay);
+            MODE = "APPEND";
+        }
+        else {
+            Context contxt = getApplicationContext();
+            CharSequence text = "Missing Operand";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(contxt, text, duration);
+            toast.show();
+        }
+    }
+
     // appends the binary operators +, -, *, / to display
     public void OnAdd(View v) {
+        checkError();
         Button button = (Button)v;
-        sign = button.getText().toString();
+        String sign = button.getText().toString();
         if(MODE.equals("OP")) {
             onDisplay = onDisplay.substring(0, onDisplay.length() - 1) + sign;
             display.setText(onDisplay);
@@ -191,20 +228,6 @@ public class Calculator extends AppCompatActivity {
             onDisplay += sign;
         display.setText(onDisplay);
         MODE = "OP";
-    }
-
-    // appends given values to display based on button clicks
-    public void OnClick(View v) {
-        if(MODE.equals("ANS") || MODE.equals("ERROR")) {
-            onDisplay = "";
-            expDisplay = "";
-        }
-        onDisplay = onDisplay.replaceAll("^0+","");
-        if (onDisplay.startsWith("."))
-            onDisplay = "0" + onDisplay;
-        getValue(v);
-        display.setText(onDisplay);
-        MODE = "APPEND";
     }
 
     // evaluates the given expression onDisplay and sets the answer to onDisplay
@@ -247,6 +270,7 @@ public class Calculator extends AppCompatActivity {
             onDisplay = onDisplay.substring(0, onDisplay.length() - 1);
         }
         display.setText(onDisplay);
+        MODE = "ERASE";
     }
 
     // clears all expression and display values on buttonclick "AC"
@@ -256,6 +280,7 @@ public class Calculator extends AppCompatActivity {
         last_answer = "";
         display.setText("");
         expression.setText("");
+        MODE = "CLEAR";
     }
 
     // reveals the "2nd" option of function/operator buttons
@@ -305,6 +330,20 @@ public class Calculator extends AppCompatActivity {
         else {
             btn.setText(deg_mode);
             deg_mode = "RAD";
+        }
+    }
+
+    // removes trailing zeros of a decimal
+    public String removeZeros(String s) {
+        s = !s.contains(".") ? s : s.replaceAll("0*$", "").replaceAll("\\.$", "");
+        return s;
+    }
+
+    // clears the display if there is an error
+    public void checkError() {
+        if(MODE.equals("ERROR")) {
+            onDisplay = "";
+
         }
     }
 }
