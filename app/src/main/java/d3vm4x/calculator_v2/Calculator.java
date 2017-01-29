@@ -9,6 +9,7 @@ import android.view.View;
 import java.lang.String;
 import android.content.Context;
 import android.widget.Toast;
+import android.os.Vibrator;
 
 public class Calculator extends AppCompatActivity {
     String sqrt = "";
@@ -181,20 +182,23 @@ public class Calculator extends AppCompatActivity {
             expDisplay = "";
         }
         checkError();
-        onDisplay = onDisplay.replaceAll("^0+","");
         if (onDisplay.startsWith("."))
             onDisplay = "0" + onDisplay;
         getValue(v);
         display.setText(onDisplay);
         MODE = "APPEND";
+        vibrate();
     }
 
     // appends the "^" power operator
     public void OnExpt(View v) {
         checkError();
-        if(MODE != "OP" && !onDisplay.isEmpty()) {
-            Button button = (Button) v;
-            String power = button.getText().toString();
+        Button button = (Button) v;
+        String power = button.getText().toString();
+        if(power.equals(sqrt) || power.equals(cbrt)) {
+            OnClick(v);
+        }
+        else if(MODE != "OP" && !onDisplay.isEmpty()) {
             if(power.equals("x^2"))
                 power = "^2";
             else if(power.equals("x^3"))
@@ -204,6 +208,7 @@ public class Calculator extends AppCompatActivity {
             onDisplay += power;
             display.setText(onDisplay);
             MODE = "APPEND";
+            vibrate();
         }
         else {
             Context contxt = getApplicationContext();
@@ -212,6 +217,7 @@ public class Calculator extends AppCompatActivity {
 
             Toast toast = Toast.makeText(contxt, text, duration);
             toast.show();
+            vibrate();
         }
     }
 
@@ -228,6 +234,7 @@ public class Calculator extends AppCompatActivity {
             onDisplay += sign;
         display.setText(onDisplay);
         MODE = "OP";
+        vibrate();
     }
 
     // evaluates the given expression onDisplay and sets the answer to onDisplay
@@ -244,6 +251,7 @@ public class Calculator extends AppCompatActivity {
             display.setText("ERROR");
             MODE = "ERROR";
         }
+        vibrate();
     }
 
     // formats the result to fit the screen of the display
@@ -264,16 +272,17 @@ public class Calculator extends AppCompatActivity {
         return last_answer;
     }
 
-    // deletes the last character of onDisplay expression on buttonclick "C"
+    // deletes the last character of onDisplay expression on button press "C"
     public void OnClear(View v) {
         if(onDisplay.length() > 0) {
             onDisplay = onDisplay.substring(0, onDisplay.length() - 1);
         }
         display.setText(onDisplay);
         MODE = "ERASE";
+        vibrate();
     }
 
-    // clears all expression and display values on buttonclick "AC"
+    // clears all expression and display values on button press "AC"
     public void OnAllClear(View v) {
         onDisplay = "";
         expDisplay = "";
@@ -281,6 +290,7 @@ public class Calculator extends AppCompatActivity {
         display.setText("");
         expression.setText("");
         MODE = "CLEAR";
+        vibrate();
     }
 
     // reveals the "2nd" option of function/operator buttons
@@ -318,6 +328,7 @@ public class Calculator extends AppCompatActivity {
             exp.setText(expt);
             inverse = false;
         }
+        vibrate();
     }
 
     // sets the calculator to either "DEG" or "RAD" mode
@@ -331,6 +342,7 @@ public class Calculator extends AppCompatActivity {
             btn.setText(deg_mode);
             deg_mode = "RAD";
         }
+        vibrate();
     }
 
     // removes trailing zeros of a decimal
@@ -345,5 +357,10 @@ public class Calculator extends AppCompatActivity {
             onDisplay = "";
 
         }
+    }
+    // vibrates the phone on button press
+    public void vibrate() {
+        Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(40);
     }
 }
