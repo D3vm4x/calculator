@@ -27,8 +27,8 @@ public class ExtendedDoubleEvaluator extends DoubleEvaluator {
     private static final Function ATAND = new Function("atand", 1);
     private static final Constant PI = new Constant(pi);
     private static final Operator EXPT = new Operator(expt, 2, Operator.Associativity.LEFT, 3);
-
-
+    private static final Operator COMBO = new Operator("C", 2, Operator.Associativity.LEFT, 3);
+    private static final Operator PERM = new Operator("P", 2, Operator.Associativity.LEFT, 3);
     private static final Parameters PARAMS;
     static {
         // Gets the default DoubleEvaluator's parameters
@@ -45,6 +45,8 @@ public class ExtendedDoubleEvaluator extends DoubleEvaluator {
         PARAMS.add(ATAND);
         PARAMS.add(PI);
         PARAMS.add(EXPT);
+        PARAMS.add(COMBO);
+        PARAMS.add(PERM);
     }
     public ExtendedDoubleEvaluator() {
         super(PARAMS);
@@ -99,11 +101,23 @@ public class ExtendedDoubleEvaluator extends DoubleEvaluator {
            Double base = operands.next();
            return Math.pow(base, 1 / exp);
         }
+        else if(operator == COMBO) {
+            Double n = operands.next();
+            Double r = operands.next();
+            return factorial(n)/(factorial(r) * factorial(n - r));
+        }
+        else if(operator == PERM) {
+            Double n = operands.next();
+            Double r = operands.next();
+            return factorial(n)/factorial(n - r);
+        }
         else
            return super.evaluate(operator, operands, evaluationContext);
     }
     private double factorial(Double n) {
-        if (n > 0) {
+        if(n != Math.floor(n) || n < 0)
+            return Double.NaN;
+        if (n > 1) {
             return n * factorial(n-1);
         }
         else {

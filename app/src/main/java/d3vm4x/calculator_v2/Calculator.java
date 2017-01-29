@@ -82,6 +82,9 @@ public class Calculator extends AppCompatActivity {
             case "0":
                 onDisplay += "0";
                 break;
+            case ".":
+                onDisplay += ".";
+                break;
             case "(":
                 onDisplay += "(";
                 break;
@@ -112,8 +115,11 @@ public class Calculator extends AppCompatActivity {
             case "x^y":
                 onDisplay += "^(";
                 break;
-            case ".":
-                onDisplay += ".";
+            case "1/x":
+                onDisplay += "1/(";
+                break;
+            case "|x|":
+                onDisplay += "abs(";
                 break;
             case "ANS":
                 if(!last_answer.equals(""))
@@ -171,8 +177,6 @@ public class Calculator extends AppCompatActivity {
             onDisplay += "cbrt(";
         else if(str.equals(pi))
             onDisplay += pi;
-        else if(str.equals(expt))
-            onDisplay += root;
     }
 
     // appends given values to display based on button clicks
@@ -190,22 +194,28 @@ public class Calculator extends AppCompatActivity {
         vibrate();
     }
 
-    // appends the "^" power operator
+    // appends the custom operators
     public void OnExpt(View v) {
         checkError();
         Button button = (Button) v;
-        String power = button.getText().toString();
-        if(power.equals(sqrt) || power.equals(cbrt)) {
+        String operator = button.getText().toString();
+        if(operator.equals(cbrt)) {
             OnClick(v);
         }
-        else if(MODE != "OP" && !onDisplay.isEmpty()) {
-            if(power.equals("x^2"))
-                power = "^2";
-            else if(power.equals("x^3"))
-                power = "^3";
-            else if(power.equals("x^y"))
-                power = "^";
-            onDisplay += power;
+        else if(!MODE.equals("OP") && !onDisplay.isEmpty()) {
+            if(operator.equals("x^2"))
+                operator = "^2";
+            else if(operator.equals("x^3"))
+                operator = "^3";
+            else if(operator.equals("x^y"))
+                operator = "^";
+            else if(operator.equals(expt))
+                operator = root;
+            else if(operator.equals("nCr"))
+                operator = "C";
+            else if(operator.equals("nPr"))
+                operator = "P";
+            onDisplay += operator;
             display.setText(onDisplay);
             MODE = "APPEND";
             vibrate();
@@ -300,8 +310,6 @@ public class Calculator extends AppCompatActivity {
         Button tan = (Button) findViewById(R.id.buttonTan);
         Button log = (Button) findViewById(R.id.buttonLog);
         Button ln = (Button) findViewById(R.id.buttonLn);
-        Button factorial = (Button) findViewById(R.id.buttonFactorial);
-        Button sqr = (Button) findViewById(R.id.buttonSqr);
         Button cbr = (Button) findViewById(R.id.buttonCbr);
         Button exp = (Button) findViewById(R.id.buttonExp);
         if(inverse == false) {
@@ -310,8 +318,6 @@ public class Calculator extends AppCompatActivity {
             tan.setText("tan");
             log.setText("log");
             ln.setText("ln");
-            factorial.setText("x!");
-            sqr.setText("x^2");
             cbr.setText("x^3");
             exp.setText("x^y");
             inverse = true;
@@ -322,8 +328,6 @@ public class Calculator extends AppCompatActivity {
             tan.setText("atan");
             log.setText("10^x");
             ln.setText("e^x");
-            factorial.setText("x!");
-            sqr.setText(sqrt);
             cbr.setText(cbrt);
             exp.setText(expt);
             inverse = false;

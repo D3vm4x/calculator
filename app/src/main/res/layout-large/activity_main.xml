@@ -53,48 +53,50 @@
         android:gravity="center">
         <Button
             android:text="2nd"
-            android:textSize="22sp"
             android:id="@+id/buttonShift"
             android:onClick="OnShift"
             android:background="@drawable/btn"
             android:layout_height="64dp"
             android:layout_width="112dp"
+            android:textSize="22sp"
             android:textAllCaps="false"/>
         <Button
             android:text="DEG"
-            android:textSize="22sp"
             android:background="@drawable/btn"
             android:layout_height="64dp"
             android:layout_width="112dp"
+            android:textSize="22sp"
             android:id="@+id/buttonDEG"
             android:onClick="OnDegree"
             android:textAllCaps="false"/>
         <Button
-            android:text="x^y"
-            android:textSize="22sp"
+            android:text="x^2"
             android:background="@drawable/btn"
             android:layout_height="64dp"
             android:layout_width="112dp"
-            android:id="@+id/buttonExp"
+            android:textSize="22sp"
+            android:id="@+id/buttonSqr"
             android:onClick="OnExpt"
             android:textAllCaps="false"/>
+
         <Button
-            android:text="x!"
-            android:textSize="22sp"
+            android:text="x^3"
             android:background="@drawable/btn"
             android:layout_height="64dp"
             android:layout_width="112dp"
-            android:id="@+id/buttonFactorial"
-            android:onClick="OnClick"
+            android:textSize="22sp"
+            android:id="@+id/buttonCbr"
+            android:onClick="OnExpt"
             android:textAllCaps="false"/>
+
         <Button
-            android:text="log"
-            android:textSize="22sp"
+            android:text="x^y"
             android:background="@drawable/btn"
             android:layout_height="64dp"
             android:layout_width="112dp"
-            android:id="@+id/buttonLog"
-            android:onClick="OnClick"
+            android:textSize="22sp"
+            android:id="@+id/buttonExp"
+            android:onClick="OnExpt"
             android:textAllCaps="false"/>
     </LinearLayout>
 
@@ -104,51 +106,105 @@
         android:orientation="horizontal"
         android:gravity="center">
         <Button
-            android:text="x^3"
-            android:textSize="22sp"
-            android:background="@drawable/btn"
-            android:layout_height="64dp"
-            android:layout_width="112dp"
-            android:id="@+id/buttonCbr"
-            android:onClick="OnExpt"
-            android:textAllCaps="false"/>
-        <Button
             android:text="sin"
-            android:textSize="22sp"
             android:background="@drawable/btn"
             android:layout_height="64dp"
             android:layout_width="112dp"
+            android:textSize="22sp"
             android:id="@+id/buttonSin"
             android:onClick="OnClick"
             android:textAllCaps="false"/>
         <Button
             android:text="cos"
-            android:textSize="22sp"
             android:background="@drawable/btn"
             android:layout_height="64dp"
             android:layout_width="112dp"
+            android:textSize="22sp"
             android:id="@+id/buttonCos"
             android:onClick="OnClick"
             android:textAllCaps="false"/>
         <Button
             android:text="tan"
-            android:textSize="22sp"
             android:background="@drawable/btn"
             android:layout_height="64dp"
             android:layout_width="112dp"
+            android:textSize="22sp"
             android:id="@+id/buttonTan"
             android:onClick="OnClick"
             android:textAllCaps="false"/>
+
         <Button
             android:text="ln"
-            android:textSize="22sp"
             android:background="@drawable/btn"
-            android:layout_height="64dp"
             android:id="@+id/buttonLn"
             android:onClick="OnClick"
             android:textAllCaps="false"
-            android:layout_width="112dp" />
+            android:layout_height="64dp"
+            android:layout_width="112dp"
+            android:textSize="22sp"/>
+
+        <Button
+            android:text="log"
+            android:background="@drawable/btn"
+            android:layout_height="64dp"
+            android:layout_width="112dp"
+            android:textSize="22sp"
+            android:id="@+id/buttonLog"
+            android:onClick="OnClick"
+            android:textAllCaps="false"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <Button
+            android:text="x!"
+            android:background="@drawable/btn"
+            android:layout_height="64dp"
+            android:layout_width="112dp"
+            android:textSize="22sp"
+            android:id="@+id/buttonFactorial"
+            android:onClick="OnClick"
+            android:textAllCaps="false"/>
+        <Button
+            android:text="1/x"
+            android:background="@drawable/btn"
+            android:layout_height="64dp"
+            android:layout_width="112dp"
+            android:textSize="22sp"
+            android:id="@+id/buttonRec"
+            android:onClick="OnClick"
+            android:textAllCaps="false"/>
+        <Button
+            android:text="nCr"
+            android:background="@drawable/btn"
+            android:layout_height="64dp"
+            android:layout_width="112dp"
+            android:textSize="22sp"
+            android:id="@+id/buttonCombo"
+            android:onClick="OnExpt"
+            android:textAllCaps="false"/>
+        <Button
+            android:text="nPr"
+            android:background="@drawable/btn"
+            android:layout_height="64dp"
+            android:layout_width="112dp"
+            android:textSize="22sp"
+            android:id="@+id/buttonPerm"
+            android:onClick="OnExpt"
+            android:textAllCaps="false"/>
+        <Button
+            android:text="|x|"
+            android:background="@drawable/btn"
+            android:layout_height="64dp"
+            android:layout_width="112dp"
+            android:textSize="22sp"
+            android:id="@+id/buttonAbs"
+            android:onClick="OnClick"
+            android:textAllCaps="false" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -156,12 +212,12 @@
         android:orientation="horizontal"
         android:gravity="center">
         <Button
-            android:text="x^2"
+            android:text="@string/sqrt"
             android:textSize="22sp"
             android:background="@drawable/btn"
             android:layout_height="80dp"
             android:layout_width="140dp"
-            android:id="@+id/buttonSqr"
+            android:id="@+id/buttonSqrt"
             android:onClick="OnExpt"
             android:textAllCaps="false" />
         <Button
