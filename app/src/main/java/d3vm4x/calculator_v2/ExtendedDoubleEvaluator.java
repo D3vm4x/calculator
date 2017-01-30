@@ -11,8 +11,7 @@ import com.fathzer.soft.javaluator.Operator;
 
 public class ExtendedDoubleEvaluator extends DoubleEvaluator {
     private static Context main_context = Calculator.getContext();
-//    private static String sqrt = main_context.getString(R.string.sqrt);
-//    private static String cbrt = main_context.getString(R.string.cbrt);
+
     private static String pi = main_context.getString(R.string.pi);
     private static String expt = main_context.getString(R.string.root);
 

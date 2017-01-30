@@ -24,7 +24,6 @@ public class Calculator extends AppCompatActivity {
     String onDisplay="";
     String expDisplay = "";
     public String last_answer = "";
-//    String sign="";
     String deg_mode = "RAD";
     private static Context mContext;
 
