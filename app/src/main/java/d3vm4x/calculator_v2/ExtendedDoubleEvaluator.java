@@ -32,7 +32,6 @@ public class ExtendedDoubleEvaluator extends DoubleEvaluator {
     static {
         // Gets the default DoubleEvaluator's parameters
         PARAMS = DoubleEvaluator.getDefaultParameters();
-        // add the new sqrt function to these parameters
         PARAMS.add(FACTORIAL);
         PARAMS.add(SQRT);
         PARAMS.add(CBRT);

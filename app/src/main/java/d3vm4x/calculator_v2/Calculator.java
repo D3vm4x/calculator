@@ -269,11 +269,16 @@ public class Calculator extends AppCompatActivity {
         last_answer = removeZeros(last_answer);
         int length = last_answer.length();
         if (last_answer.contains("E")) {
-            String partnum = last_answer.substring(0, 8);
+            String partnum = last_answer.substring(0, last_answer.indexOf("E"));
             String partE = last_answer.substring(last_answer.indexOf("E"), length);
+            partE = partE.replaceAll("E", "*10^(");
+            partE += ")";
+            int partnum_length = partnum.length();
+            int partE_length = partE.length();
+	        if(partnum_length + partE_length > 15) {
+                partnum = partnum.substring(0, 15 - partE_length);
+            }
             last_answer = partnum + partE;
-            last_answer = last_answer.replaceAll("E", "*10^(");
-            last_answer += ")";
         }
         else if(length > 15) {
             last_answer = last_answer.substring(0, 15);
